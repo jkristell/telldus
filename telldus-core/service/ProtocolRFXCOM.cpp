@@ -38,7 +38,7 @@ std::string ProtocolRFXCOM::decodeData(const ControllerMessage& dataMsg) {
 	data = data.substr(0, data.length()-2);
         
         // Sum the full 24-bit counter field
-        uint64_t counts = counts16*65536 + counts8*256 + counts;
+        uint64_t counts64 = counts16*65536 + counts8*256 + counts;
 
 	data = data.substr(0, data.length()-2);
 
@@ -48,7 +48,7 @@ std::string ProtocolRFXCOM::decodeData(const ControllerMessage& dataMsg) {
 
         std::stringstream retString;
         retString << "class:sensor;protocol:rfxcom;id:" << static_cast<int>(id);
-        retString << ";model:rfxmeter;counter:" << static_cast<int>(counts);
+        retString << ";model:rfxmeter;counter:" << static_cast<int>(counts64);
         retString << ";";
 
 	return retString.str();
