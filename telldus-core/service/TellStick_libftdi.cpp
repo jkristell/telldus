@@ -118,7 +118,13 @@ bool TellStick::isSameAsDescriptor(const TellStickDescriptor &td) const {
 }
 
 void TellStick::processData( const std::string &data ) {
+
+	printf("process len = %d\n", data.length());
+
 	for (unsigned int i = 0; i < data.length(); ++i) {
+
+		printf("%d = '%c',", data[i], data[i]);
+
 		if (data[i] == 13) {  // Skip \r
 			continue;
 		} else if (data[i] == 10) {  // \n found
@@ -133,7 +139,9 @@ void TellStick::processData( const std::string &data ) {
 		} else {  // Append the character
 			d->message.append( 1, data[i] );
 		}
+
 	}
+		printf("\n\n");
 }
 
 int TellStick::reset() {
@@ -185,6 +193,13 @@ int TellStick::send( const std::string &strMessage ) {
 	if (!d->open) {
 		return TELLSTICK_ERROR_NOT_FOUND;
 	}
+
+	printf("send len = %d\n", strMessage.length());
+	for (int i = 0; i < strMessage.length(); ++i) {
+		printf("%c,", strMessage[i]);
+	}
+	printf("\n");
+
 
 	bool c = true;
 	unsigned char *tempMessage = new unsigned char[strMessage.size()];
